@@ -1,0 +1,92 @@
+CCLE_GDSC=[]
+CCLE_gCSI=[]
+GDSC_gCSI=[]
+import numpy as np
+
+ccle_gdsc_our_method_mae_m=[0.07227447347397993, 0.07201324261224358, 0.07121283767240684, 0.07684685222865817, 0.07191529831603252, 0.07209407499251368, 0.07762596995744873, 0.07564930861910249, 0.07320608143924845, 0.07125773142803439]
+ccle_gdsc_our_method_mae_2m=[0.07750435859445634, 0.08128594906848796, 0.07927251851180589, 0.08487267648914337, 0.07890173545352, 0.08023367125878651, 0.08011996700306542, 0.08145452183045261, 0.08212391573436044, 0.0790247484567016]
+ccle_gdsc_our_method_mae_3m=[0.08090793356448173, 0.08060492364184431, 0.07950215015921881, 0.08073245559947792, 0.07808077334111573, 0.07864084271060635, 0.07865938040141392, 0.08404073356439382, 0.0815451063856903, 0.07944971393137644]
+ccle_gdsc_our_method_mae_all=[0.0809074015543588, 0.08060484408114997, 0.07950210615643735, 0.08073232536414603, 0.07808079303546898, 0.078640769939954, 0.0786593889715657, 0.08404085303344207, 0.08154504371648628, 0.07944970445864312]
+
+CCLE_GDSC.append(ccle_gdsc_our_method_mae_m)
+CCLE_GDSC.append(ccle_gdsc_our_method_mae_2m)
+CCLE_GDSC.append(ccle_gdsc_our_method_mae_3m)
+CCLE_GDSC.append(ccle_gdsc_our_method_mae_all)
+
+
+
+ccle_gcsi_our_method_mae_m=[0.08732052489357384, 0.08385777831761812, 0.09385716824341771, 0.08869079224842326, 0.08623494599059629, 0.08892167106595956, 0.09414126612539725, 0.08194464219316935, 0.0881087876430007, 0.09211792418813834]
+
+ccle_gcsi_our_method_mae_2m=[0.08230593095243355, 0.08027390673008056, 0.07820913410443696, 0.07600435779266795, 0.08741440168417046, 0.07844984906385179, 0.08225077219357374, 0.07859805520885707, 0.08110466341848173, 0.08176049987933866]
+
+ccle_gcsi_our_method_mae_3m=[0.07705096416426478, 0.08065089555846615, 0.07948198082393254, 0.08372761380609058, 0.08271180100590204, 0.08224976559765912, 0.0795774015132785, 0.07933527784439265, 0.07840677771363055, 0.08432884490854775]
+
+ccle_gcsi_our_method_mae_all=[0.08076638681943651, 0.08009623633548871, 0.08253400481769986, 0.08172976830797524, 0.08208964210266832, 0.08302400780745807, 0.08185721795653601, 0.08246301752944558, 0.0812317267071844, 0.08361645014185363]
+
+CCLE_gCSI.append(ccle_gcsi_our_method_mae_m)
+CCLE_gCSI.append(ccle_gcsi_our_method_mae_2m)
+CCLE_gCSI.append(ccle_gcsi_our_method_mae_3m)
+CCLE_gCSI.append(ccle_gcsi_our_method_mae_all)
+
+
+
+gdsc_gcsi_our_method_mae_m=[0.07974225419892197, 0.07993405404317593, 0.07828956214684119, 0.0804974433704039, 0.07783935963349399, 0.07693932761605733, 0.07761594034673773, 0.07538750482420185, 0.07750256460782112, 0.07733825361366954]
+
+
+gdsc_gcsi_our_method_mae_2m=[0.07703376428024315, 0.07456921206446722, 0.0718666273549015, 0.07306168555408656, 0.07486877608733254, 0.0750139403784584, 0.07381214959937336, 0.07187295195900177, 0.07238595232296163, 0.07265098815987373]
+
+
+gdsc_gcsi_our_method_mae_3m=[0.0751233411252866, 0.07446695524854571, 0.0765738256072814, 0.07719294941355992, 0.07496323915096385, 0.07488962015202075, 0.07650834783346495, 0.0755716117091688, 0.07359132887307808, 0.07473419192672925]
+
+
+gdsc_gcsi_our_method_mae_all=[0.07422984312659701, 0.07781167184036335, 0.07344452352241902, 0.07569255758520366, 0.07282042899428959, 0.07577278617354004, 0.07418072520647431, 0.07448581294071474, 0.07436118095289632, 0.07353982494341302]
+
+GDSC_gCSI.append(gdsc_gcsi_our_method_mae_m)
+GDSC_gCSI.append(gdsc_gcsi_our_method_mae_2m)
+GDSC_gCSI.append(gdsc_gcsi_our_method_mae_3m)
+GDSC_gCSI.append(gdsc_gcsi_our_method_mae_all)
+
+datasets={
+        0:CCLE_GDSC,
+        1:CCLE_gCSI,
+        2:GDSC_gCSI,
+        }
+
+
+names={
+        0:"CCLE-GDSC",
+        1:"CCLE-gCSI",
+        2:"GDSC-gCSI"
+        }
+
+# import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+plt.style.use('ggplot')
+plt.figure(figsize=(10,10))
+plt.suptitle("MAE score comparison between different dataset wrt to different sized overlapping samples (m)",fontweight='bold')
+for counter in range(len(datasets)):
+    ax = plt.subplot(2, 2, counter + 1)
+    main=ax.boxplot(datasets[counter], patch_artist=True)
+    m = np.array(datasets[counter])
+    m=m.mean(axis=1)
+    st = np.array(datasets[counter])
+    st=st.std(axis=1)
+    ax.set_title(names[counter])
+    for i, line in enumerate(main['medians']):
+        x, y = line.get_xydata()[1]
+        text = ' μ={:.4f}\n σ={:.4f}'.format(m[i], st[i])
+        ax.annotate(text, xy=(x, y))
+    ax.set_xticks([1, 2,3,4])
+    ax.set_xticklabels(["m non-overlapping","2m non-overlapping","3m non-overlapping","all non-overlapping samples"], rotation=10)
+    # ax.set_ylim(-20,10)
+
+    colors=["forestgreen", "blue", "dimgray", "orange"]
+     
+    for patch, color in zip(main['boxes'],colors):
+        patch.set_facecolor(color)
+plt.tight_layout()
+plt.savefig('Mae.png')
+plt.show()
